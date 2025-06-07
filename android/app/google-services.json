@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "635962095640",
+    "project_id": "expense-tracker-e0da9",
+    "storage_bucket": "expense-tracker-e0da9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635962095640:android:a95c3240335ae46e90ab6d",
+        "android_client_info": {
+          "package_name": "com.ranojit.trackmyspend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635962095640-rnlbma9i5rm344svvmn068f7843brgcs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ranojit.trackmyspend",
+            "certificate_hash": "effc84bdc14f41340fa583186a431c9d9025a67c"
+          }
+        },
+        {
+          "client_id": "635962095640-spf8epnohkae1qmk3gg4she63uju14b6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ranojit.trackmyspend",
+            "certificate_hash": "02936b4a1d37584834e6510f55acf8c752d8b6e9"
+          }
+        },
+        {
+          "client_id": "635962095640-vm76qc236hdo7mvmsom9fphh85nu8ufa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzUdnSFvF5qS8FjqTuh77SKTqSqOZplYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635962095640-vm76qc236hdo7mvmsom9fphh85nu8ufa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
