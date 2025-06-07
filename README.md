@@ -22,11 +22,11 @@ Built using **Flutter & Dart**, supporting **Android**, **iOS**, **Web**, and **
 > _Update the image paths if your filenames are different in the `assets/` folder._
 
 <p float="left">
-  <img src="assets/screenshot_home.png" alt="Home Screen" width="200"/>
-  <img src="assets/screenshot_chart.png" alt="Charts" width="200"/>
-  <img src="assets/screenshot_add.png" alt="Add Expense" width="200"/>
+  <img src="https://res.cloudinary.com/deuhpyrku/image/upload/v1749314618/Screenshot_20250607-213111_vth4ur.png" alt="Home Screen" width="200"/>
+  <img src="https://res.cloudinary.com/deuhpyrku/image/upload/v1749314617/Screenshot_20250607-213054_h4sdqb.png" alt="Charts" width="200"/>
+  <img src="https://res.cloudinary.com/deuhpyrku/image/upload/v1749314617/Screenshot_20250607-213046_fezych.png" alt="Add Expense" width="200"/>
+  <img src="https://res.cloudinary.com/deuhpyrku/image/upload/v1749314616/Screenshot_20250607-213102_ov6top.png" alt="Extra Screenshot" width="200"/>
 </p>
-
 ---
 
 ## 🗂️ Project Structure
