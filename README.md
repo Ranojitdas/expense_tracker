@@ -19,7 +19,6 @@ Built using **Flutter & Dart**, supporting **Android**, **iOS**, **Web**, and **
 
 ## 🖼️ Screenshots
 
-> _Update the image paths if your filenames are different in the `assets/` folder._
 
 <p float="left">
   <img src="https://res.cloudinary.com/deuhpyrku/image/upload/v1749314618/Screenshot_20250607-213111_vth4ur.png" alt="Home Screen" width="200"/>
