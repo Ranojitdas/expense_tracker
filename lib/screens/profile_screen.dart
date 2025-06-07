@@ -41,14 +41,14 @@ class ProfileScreen extends StatelessWidget {
 
         final totalBalance = totalIncome - totalExpenses;
 
-        return Scaffold(
-          backgroundColor: colorScheme.surface,
-          body: CustomScrollView(
-            slivers: [
-              // Profile Header
-              SliverAppBar(
+    return Scaffold(
+      backgroundColor: colorScheme.surface,
+      body: CustomScrollView(
+        slivers: [
+          // Profile Header
+          SliverAppBar(
                 expandedHeight: 280,
-                pinned: true,
+            pinned: true,
                 backgroundColor: colorScheme.primary,
                 centerTitle: true,
                 flexibleSpace: LayoutBuilder(
@@ -78,36 +78,36 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      background: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              colorScheme.primary,
-                              colorScheme.primary.withOpacity(0.8),
-                            ],
-                          ),
-                        ),
-                        child: SafeArea(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      colorScheme.primary,
+                      colorScheme.primary.withOpacity(0.8),
+                    ],
+                  ),
+                ),
+                child: SafeArea(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Stack(
-                                children: [
-                                  CircleAvatar(
+                    children: [
+                      CircleAvatar(
                                     radius: 50,
-                                    backgroundColor: Colors.white,
-                                    backgroundImage: user?.photoURL != null
-                                        ? NetworkImage(user!.photoURL!)
-                                        : null,
-                                    child: user?.photoURL == null
-                                        ? const Icon(
-                                            Icons.person,
+                        backgroundColor: Colors.white,
+                        backgroundImage: user?.photoURL != null
+                            ? NetworkImage(user!.photoURL!)
+                            : null,
+                        child: user?.photoURL == null
+                            ? const Icon(
+                                Icons.person,
                                             size: 50,
-                                            color: Colors.grey,
-                                          )
-                                        : null,
+                                color: Colors.grey,
+                              )
+                            : null,
                                   ),
                                   Positioned(
                                     bottom: 0,
@@ -130,21 +130,21 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                user?.displayName ?? 'Guest User',
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        user?.displayName ?? 'Guest User',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall
                                     ?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
                               const SizedBox(height: 4),
-                              Text(
-                                user?.email ?? 'Not signed in',
+                      Text(
+                        user?.email ?? 'Not signed in',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -225,32 +225,32 @@ class ProfileScreen extends StatelessWidget {
                           value:
                               '${currencySymbol}${totalExpenses.toStringAsFixed(2)}',
                           color: Colors.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Settings Section
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Settings',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
                             ),
                       ),
-                      const SizedBox(height: 16),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Account Settings',
+                    ],
+              ),
+            ),
+          ),
+          // Settings Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Settings',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Account Settings',
                         subtitle: 'Manage your account details',
-                        icon: Icons.person_outline,
-                        onTap: () {
+                    icon: Icons.person_outline,
+                    onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -258,23 +258,23 @@ class ProfileScreen extends StatelessWidget {
                                   const AccountSettingsScreen(),
                             ),
                           );
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Notifications',
+                    },
+                  ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Notifications',
                         subtitle: 'Configure notification preferences',
-                        icon: Icons.notifications_outlined,
-                        onTap: () {
-                          // TODO: Navigate to notifications settings
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Currency',
+                    icon: Icons.notifications_outlined,
+                    onTap: () {
+                      // TODO: Navigate to notifications settings
+                    },
+                  ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Currency',
                         subtitle: 'Change your preferred currency',
-                        icon: Icons.currency_rupee,
-                        onTap: () {
+                    icon: Icons.currency_rupee,
+                    onTap: () {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
@@ -307,17 +307,17 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           );
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Categories',
+                    },
+                  ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Categories',
                         subtitle: 'Manage transaction categories',
-                        icon: Icons.category_outlined,
-                        onTap: () {
-                          // TODO: Navigate to categories settings
-                        },
-                      ),
+                    icon: Icons.category_outlined,
+                    onTap: () {
+                      // TODO: Navigate to categories settings
+                    },
+                  ),
                       _buildSettingsCard(
                         context,
                         title: 'Theme Mode',
@@ -382,58 +382,58 @@ class ProfileScreen extends StatelessWidget {
                           );
                         },
                       ),
-                    ],
-                  ),
-                ),
+                ],
               ),
-              // About Section
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'About',
+            ),
+          ),
+          // About Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'About',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const SizedBox(height: 16),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Help & Support',
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Help & Support',
                         subtitle: 'Get help and contact support',
-                        icon: Icons.help_outline,
-                        onTap: () {
+                    icon: Icons.help_outline,
+                    onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const HelpSupportScreen(),
                             ),
                           );
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Privacy Policy',
+                    },
+                  ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Privacy Policy',
                         subtitle: 'Read our privacy policy',
-                        icon: Icons.privacy_tip_outlined,
-                        onTap: () {
+                    icon: Icons.privacy_tip_outlined,
+                    onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const PrivacyPolicyScreen(),
                             ),
                           );
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'Terms of Service',
+                    },
+                  ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'Terms of Service',
                         subtitle: 'Read our terms of service',
-                        icon: Icons.description_outlined,
-                        onTap: () {
+                    icon: Icons.description_outlined,
+                    onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -441,59 +441,59 @@ class ProfileScreen extends StatelessWidget {
                                   const TermsOfServiceScreen(),
                             ),
                           );
-                        },
-                      ),
-                      _buildSettingsCard(
-                        context,
-                        title: 'App Version',
-                        subtitle: '1.0.0',
-                        icon: Icons.info_outline,
-                        onTap: () {
-                          // TODO: Show version info
-                        },
-                      ),
-                    ],
+                    },
                   ),
-                ),
+                  _buildSettingsCard(
+                    context,
+                    title: 'App Version',
+                        subtitle: '1.0.0',
+                    icon: Icons.info_outline,
+                    onTap: () {
+                      // TODO: Show version info
+                    },
+                  ),
+                ],
               ),
-              // Logout Button
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: FilledButton.icon(
-                    onPressed: () async {
-                      try {
-                        await authProvider.logout();
-                        if (context.mounted) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(
-                                onLogin: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                          );
-                        }
-                      } catch (e) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+            ),
+          ),
+          // Logout Button
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: FilledButton.icon(
+                onPressed: () async {
+                  try {
+                    await authProvider.logout();
+                    if (context.mounted) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(
+                            onLogin: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
                               content:
                                   Text('Error signing out: ${e.toString()}'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      }
-                    },
-                    icon: const Icon(Icons.logout),
-                    label: const Text('Logout'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text('Logout'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 50),
-                    ),
+              ),
                   ),
                 ),
               ),
@@ -547,7 +547,7 @@ class ProfileScreen extends StatelessWidget {
             value,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                ),
+            ),
           ),
         ],
       ),
@@ -579,9 +579,9 @@ class ProfileScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
-            icon,
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+        ),
         ),
         title: Text(
           title,
