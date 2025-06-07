@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum TimeFilter { daily, monthly, yearly }
+enum TimeFilter { daily, weekly, monthly, yearly }
 
 class TimeFilterChip extends StatelessWidget {
   final TimeFilter selectedFilter;
@@ -12,31 +12,29 @@ class TimeFilterChip extends StatelessWidget {
     required this.onFilterChanged,
   });
 
-  String _getFilterLabel(TimeFilter filter) {
-    switch (filter) {
-      case TimeFilter.daily:
-        return 'Today';
-      case TimeFilter.monthly:
-        return 'This Month';
-      case TimeFilter.yearly:
-        return 'This Year';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(8),
+        color: colorScheme.surfaceVariant,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: colorScheme.outline.withOpacity(0.5),
+          width: 1,
+        ),
       ),
       child: DropdownButton<TimeFilter>(
         value: selectedFilter,
         underline: const SizedBox(),
         icon: const Icon(Icons.arrow_drop_down, size: 20),
+        isExpanded: false,
+        elevation: 8,
+        dropdownColor: colorScheme.surface,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+              color: colorScheme.onSurface,
             ),
         items: TimeFilter.values.map((TimeFilter filter) {
           return DropdownMenuItem<TimeFilter>(
@@ -47,7 +45,7 @@ class TimeFilterChip extends StatelessWidget {
                 Icon(
                   _getFilterIcon(filter),
                   size: 16,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: colorScheme.primary,
                 ),
                 const SizedBox(width: 8),
                 Text(_getFilterLabel(filter)),
@@ -64,10 +62,25 @@ class TimeFilterChip extends StatelessWidget {
     );
   }
 
+  String _getFilterLabel(TimeFilter filter) {
+    switch (filter) {
+      case TimeFilter.daily:
+        return 'Today';
+      case TimeFilter.weekly:
+        return 'This Week';
+      case TimeFilter.monthly:
+        return 'This Month';
+      case TimeFilter.yearly:
+        return 'This Year';
+    }
+  }
+
   IconData _getFilterIcon(TimeFilter filter) {
     switch (filter) {
       case TimeFilter.daily:
         return Icons.today;
+      case TimeFilter.weekly:
+        return Icons.calendar_view_week;
       case TimeFilter.monthly:
         return Icons.calendar_month;
       case TimeFilter.yearly:

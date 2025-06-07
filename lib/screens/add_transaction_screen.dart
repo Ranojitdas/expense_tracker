@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 import '../providers/transaction_provider.dart';
 import 'package:uuid/uuid.dart';
+import '../services/auth_service.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -52,8 +53,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      final userId = context.read<AuthService>().currentUser?.uid;
+      if (userId == null) return;
+
       final transaction = Transaction(
         id: const Uuid().v4(),
+        userId: userId,
         title: _titleController.text,
         amount: double.parse(_amountController.text),
         date: _selectedDate,

@@ -17,6 +17,19 @@ class BalanceCard extends StatefulWidget {
 class _BalanceCardState extends State<BalanceCard> {
   TimeFilter _selectedFilter = TimeFilter.monthly;
 
+  String _getPeriodLabel() {
+    switch (_selectedFilter) {
+      case TimeFilter.daily:
+        return 'Today';
+      case TimeFilter.weekly:
+        return 'This Week';
+      case TimeFilter.monthly:
+        return 'This Month';
+      case TimeFilter.yearly:
+        return 'This Year';
+    }
+  }
+
   double _getFilteredAmount(List<Transaction> transactions, bool isExpense) {
     final now = DateTime.now();
     final filteredTransactions = transactions.where((t) {
@@ -26,6 +39,10 @@ class _BalanceCardState extends State<BalanceCard> {
           return t.date.year == now.year &&
               t.date.month == now.month &&
               t.date.day == now.day;
+        case TimeFilter.weekly:
+          final weekStart = now.subtract(Duration(days: now.weekday - 1));
+          final weekEnd = weekStart.add(const Duration(days: 7));
+          return t.date.isAfter(weekStart) && t.date.isBefore(weekEnd);
         case TimeFilter.monthly:
           return t.date.year == now.year && t.date.month == now.month;
         case TimeFilter.yearly:

@@ -18,48 +18,95 @@ class DatabaseHelper {
     final dbPath = await sqflite.getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await sqflite.openDatabase(path, version: 1, onCreate: _createDB);
+    return await sqflite.openDatabase(
+      path,
+      version: 3,
+      onCreate: _createDB,
+      onUpgrade: _onUpgrade,
+    );
+  }
+
+  Future<void> _onUpgrade(
+      sqflite.Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 3) {
+      // Drop and recreate the table to ensure proper schema
+      await db.execute('DROP TABLE IF EXISTS transactions');
+      await _createDB(db, newVersion);
+    }
   }
 
   Future<void> _createDB(sqflite.Database db, int version) async {
     await db.execute('''
       CREATE TABLE transactions(
         id TEXT PRIMARY KEY,
+        userId TEXT NOT NULL,
         title TEXT NOT NULL,
         amount REAL NOT NULL,
         date TEXT NOT NULL,
         isExpense INTEGER NOT NULL,
-        category TEXT NOT NULL
+        category TEXT NOT NULL,
+        description TEXT,
+        dueDate TEXT
       )
     ''');
   }
 
   Future<int> insertTransaction(Transaction transaction) async {
     final db = await database;
-    return await db.insert('transactions', transaction.toMap());
+    try {
+      final map = transaction.toMap();
+      // Ensure isExpense is an integer
+      map['isExpense'] = transaction.isExpense ? 1 : 0;
+      return await db.insert('transactions', map);
+    } catch (e) {
+      print('Error inserting transaction: $e');
+      rethrow;
+    }
   }
 
-  Future<List<Transaction>> getAllTransactions() async {
+  Future<List<Transaction>> getAllTransactions(String userId) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'transactions',
-      orderBy: 'date DESC',
-    );
-    return List.generate(maps.length, (i) => Transaction.fromMap(maps[i]));
+    try {
+      final List<Map<String, dynamic>> maps = await db.query(
+        'transactions',
+        where: 'userId = ?',
+        whereArgs: [userId],
+        orderBy: 'date DESC',
+      );
+      return List.generate(maps.length, (i) => Transaction.fromMap(maps[i]));
+    } catch (e) {
+      print('Error getting transactions: $e');
+      return [];
+    }
   }
 
-  Future<int> deleteTransaction(int id) async {
+  Future<int> deleteTransaction(String id, String userId) async {
     final db = await database;
-    return await db.delete('transactions', where: 'id = ?', whereArgs: [id]);
+    try {
+      return await db.delete(
+        'transactions',
+        where: 'id = ? AND userId = ?',
+        whereArgs: [id, userId],
+      );
+    } catch (e) {
+      print('Error deleting transaction: $e');
+      rethrow;
+    }
   }
 
-  Future<double> getTotalBalance() async {
+  Future<double> getTotalBalance(String userId) async {
     final db = await database;
-    final List<Map<String, dynamic>> result = await db.rawQuery('''
-      SELECT 
-        SUM(CASE WHEN isExpense = 1 THEN -amount ELSE amount END) as balance
-      FROM transactions
-    ''');
-    return result.first['balance'] as double? ?? 0.0;
+    try {
+      final List<Map<String, dynamic>> result = await db.rawQuery('''
+        SELECT 
+          COALESCE(SUM(CASE WHEN isExpense = 1 THEN -amount ELSE amount END), 0) as balance
+        FROM transactions
+        WHERE userId = ?
+      ''', [userId]);
+      return result.first['balance'] as double? ?? 0.0;
+    } catch (e) {
+      print('Error calculating balance: $e');
+      return 0.0;
+    }
   }
 }

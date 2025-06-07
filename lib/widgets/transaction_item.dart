@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 import '../providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class TransactionItem extends StatelessWidget {
   final Transaction transaction;
@@ -29,7 +28,39 @@ class TransactionItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // TODO: Show transaction details
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Delete Transaction'),
+              content: Text(
+                  'Are you sure you want to delete "${transaction.title}"?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context
+                        .read<TransactionProvider>()
+                        .deleteTransaction(transaction.id);
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Transaction deleted'),
+                        backgroundColor: colorScheme.primary,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.red,
+                  ),
+                  child: const Text('Delete'),
+                ),
+              ],
+            ),
+          );
         },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
