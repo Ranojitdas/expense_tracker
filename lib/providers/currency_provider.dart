@@ -67,3 +67,4 @@ class CurrencyProvider with ChangeNotifier {
     'INR': 'Indian Rupee',
   };
 }
+ 
