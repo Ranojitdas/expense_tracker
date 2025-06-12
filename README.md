@@ -1,4 +1,4 @@
-# 💸 Expense Tracker
+# 💸 Track My Spend
 
 **Track your spending, manage your budget, and stay in control of your finances — across all your devices!**  
 Built using **Flutter & Dart**, supporting **Android**, **iOS**, **Web**, and **macOS** platforms.
